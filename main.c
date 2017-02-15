@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Wed Feb 15 14:29:02 2017 Brice Lang-Nguyen
+** Last update Wed Feb 15 18:46:50 2017 Brice Lang-Nguyen
 */
 
 #include <unistd.h>
@@ -86,34 +86,38 @@ void	filled_map(char **map, arg argument)
   return ;
 }
 
+void	draw_line(arg argument)
+{
+  int	i;
+
+  i = 0;
+  while (i < argument.base + 2)
+    {
+      my_putchar('*');
+      i++;
+    }
+  my_putchar('\n');
+  return ;
+}
+
+
 void	display_map(char **map, arg argument)
 {
   int	i;
   int	j;
 
-  i = 0;
-  while (i < argument.base + 2)
-    {
-      my_putstr("*");
-      i++;
-    }
-  my_putchar('\n');
+  draw_line(argument);
   i = 0;
   while (i < argument.line)
     {
       j = 0;
-      my_putstr("*");
+      my_putchar('*');
       while (j < argument.base)
 	my_putchar(map[i][j++]);
       my_putstr("*\n");
       i++;
     }
-  i = 0;
-  while (i < argument.base + 2)
-    {
-      my_putstr("*");
-      i++;
-    }
+  draw_line(argument);
   my_putchar('\n');
   return ;
 }
@@ -136,23 +140,143 @@ char	**create_map(arg argument)
       i++;
     }
   filled_map(tab, argument);
-  display_map(tab, argument);
   return (tab);
 }
 
+int	check_map(char	**map, arg argument)
+{
+  int	i;
+  int	j;
 
-int	game(char **argv)
+  i = 0;
+  while (i < argument.line)
+    {
+      j = 0;
+      while (j < argument.base)
+	{
+	  if (map[i][j] == '|')
+	    return (false);
+	  j++;
+	}
+      i++;
+    }
+  return (true);
+}
+
+void	rm_matches(int line, int nb_of_matches, char **map, arg argument)
+{
+  int	i;
+  int	j;
+
+  i = 0;
+  j = 0;
+  while (i < argument.base)
+    {
+      if (map[line][i] == '|')
+	j++;
+      i++;
+    }
+  if (j < nb_of_matches)
+    return ;
+  i = argument.base;
+  while (map[line][i] != '|')
+    {
+      i--;
+    }
+  j = 0;
+  while (j < nb_of_matches)
+    {
+      map[line][i] = ' ';
+      i--;
+      j++;
+    }
+  return ;
+}
+
+
+void	your_turn(char **map, arg argument)
+{
+  char	*input;
+  int	line;
+  int	nb_of_matches;
+
+  my_putstr("Your turn:\n");
+  my_putstr("Line: ");
+  input = get_next_line(0);
+  line = my_getnbr(input) - 1;
+  free(input);
+  my_putstr("Matches: ");
+  input = get_next_line(0);
+  nb_of_matches = my_getnbr(input);
+  rm_matches(line, nb_of_matches, map, argument);
+  free(input);
+  my_putstr("Player removed ");
+  my_put_nbr(nb_of_matches);
+  my_putstr(" match(es) from line ");
+  my_put_nbr(line);
+  my_putchar('\n');
+}
+
+void	ia_turn(char **map, arg argument)
+{
+  int	line;
+  int	nb_of_matches;
+
+  my_putstr("AI's turn...\n");
+  srand(time(NULL));
+  line = rand() % (argument.line - 1) + 1;
+  nb_of_matches = rand() % (line * 2 - 1) + 1;
+  rm_matches(line - 1, nb_of_matches, map, argument);
+  my_putstr("AI removed ");
+  my_put_nbr(nb_of_matches);
+  my_putstr(" match(es) from line ");
+  my_put_nbr(line);
+  my_putchar('\n');  
+}
+
+int	game_loop(char **map, arg argument)
+{
+  int	state;
+  int	turn;
+  char	*input;
+
+  state = 0;
+  turn = 0;
+  while (!state)
+    {
+      display_map(map, argument);
+      if (turn == 0)
+	{
+	  your_turn(map, argument);
+	  turn = 1;
+	}
+      else
+	{
+	  ia_turn(map, argument);
+	  turn = 0;
+	}
+      if (check_map(map, argument) && turn == 0)
+	return (1);
+      else if (check_map(map, argument) && turn == 1)
+	return (2);
+    }
+  return (0);
+}
+
+int	prep_game(char **argv)
 {
   arg	argument;
   char	**map;
+  int	return_value;
 
   argument.line = my_getnbr(argv[1]);
   argument.nb_rm_stick = my_getnbr(argv[2]);
   argument.base = argument.line * 2 - 1;
   map = create_map(argument);
+  return_value = game_loop(map, argument);
   free(map[0]);
   free(map);
-  return (0);
+  return (return_value);
 }
 
 
@@ -162,7 +286,7 @@ int	main(int argc, char **argv)
 
   if (!(verif(argc, argv)))
     return (84);
-  if ((return_value = game(argv)))
+  if ((return_value = prep_game(argv)))
     return (return_value);
   return (EXIT_SUCCESS);
 }

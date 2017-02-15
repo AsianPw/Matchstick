@@ -5,7 +5,7 @@
 ## Login   <brice.lang-nguyen@epitech.eu>
 ## 
 ## Started on  Wed Feb 15 13:55:59 2017 Brice Lang-Nguyen
-## Last update Wed Feb 15 13:56:21 2017 Brice Lang-Nguyen
+## Last update Wed Feb 15 18:38:21 2017 Brice Lang-Nguyen
 ##
 
 NAME	= matchstick
@@ -15,12 +15,14 @@ CC	= gcc
 RM	= rm -f
 
 SRCS	= ./main.c \
-	  ./src/my_getnbr.c 
+	  ./src/my_getnbr.c \
+	  ./src/get_next_line.c \
+	  ./src/my_put_nbr.c \
 
 OBJS	= $(SRCS:.c=.o)
 
 CFLAGS = -I./inc/
-CFLAGS += -W -Wall -Wextra
+CFLAGS += -g -W -Wall -Wextra
 
 all: $(NAME)
 

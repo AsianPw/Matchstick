@@ -6,7 +6,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:47:15 2017 Brice Lang-Nguyen
-** Last update Wed Feb 15 13:47:51 2017 Brice Lang-Nguyen
+** Last update Wed Feb 15 16:30:53 2017 Brice Lang-Nguyen
 */
 
 #ifndef __MATCHSTICK__
@@ -25,6 +25,9 @@ typedef struct arg
   int	nb_rm_stick;
 } arg;
 
+char	*get_next_line(const int fd);
+
+int	my_put_nbr(int nb);
 int	my_getnbr(char*);
 int	my_strlen(char*);
 

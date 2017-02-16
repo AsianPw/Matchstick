@@ -5,9 +5,10 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Wed Feb 15 18:46:50 2017 Brice Lang-Nguyen
+** Last update Thu Feb 16 17:55:12 2017 Brice Lang-Nguyen
 */
 
+#include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "matchstick.h"
@@ -193,52 +194,102 @@ void	rm_matches(int line, int nb_of_matches, char **map, arg argument)
   return ;
 }
 
+void	display_result(int line, int nb_of_matches, int who)
+{
+  if (who == 0)
+    my_putstr("Player removed ");
+  else
+    my_putstr("AI removed ");
+  my_put_nbr(nb_of_matches);
+  my_putstr(" match(es) from line ");
+  my_put_nbr(line + 1);
+  my_putchar('\n');
+  return ;
+}
+
+int	check_nb_stick(char **map, arg argument, int line)
+{
+  int	i;
+  int	nb_of_stick;
+
+  i = 0;
+  nb_of_stick = 0;
+  while (i < argument.line * 2 - 1)
+    {
+      if (map[line][i] == '|')
+	nb_of_stick++;
+      i++;
+    }
+  return (nb_of_stick);
+}
 
 void	your_turn(char **map, arg argument)
 {
   char	*input;
   int	line;
   int	nb_of_matches;
+  int	state;
 
   my_putstr("Your turn:\n");
-  my_putstr("Line: ");
-  input = get_next_line(0);
-  line = my_getnbr(input) - 1;
-  free(input);
-  my_putstr("Matches: ");
-  input = get_next_line(0);
-  nb_of_matches = my_getnbr(input);
+  state = 0;
+  while (!state)
+    {
+      my_putstr("Line: ");
+      input = get_next_line(0);
+      line = my_getnbr(input) - 1;
+      free(input);
+      if (line + 1 >= 1 && line + 1 <= argument.line)
+	{
+	  my_putstr("Matches: ");
+	  input = get_next_line(0);
+	  nb_of_matches = my_getnbr(input);
+	  if (nb_of_matches <= check_nb_stick(map, argument, line))
+	    {
+	      if (nb_of_matches <= argument.nb_rm_stick)
+		state = 1;
+	      else
+		{
+		  my_putstr("Error: you cannot remove more than ");
+		  my_put_nbr(argument.nb_rm_stick);
+		  my_putstr(" matches per turn\n");
+		}
+	    }
+	  else
+	    my_putstr("Error: not enough matches on this line\n");
+	}
+      else
+	my_putstr("Error: this line is out of range\n");
+    }
   rm_matches(line, nb_of_matches, map, argument);
   free(input);
-  my_putstr("Player removed ");
-  my_put_nbr(nb_of_matches);
-  my_putstr(" match(es) from line ");
-  my_put_nbr(line);
-  my_putchar('\n');
+  display_result(line, nb_of_matches, 0);
 }
+
 
 void	ia_turn(char **map, arg argument)
 {
   int	line;
+  int	state;
   int	nb_of_matches;
 
   my_putstr("AI's turn...\n");
   srand(time(NULL));
-  line = rand() % (argument.line - 1) + 1;
-  nb_of_matches = rand() % (line * 2 - 1) + 1;
-  rm_matches(line - 1, nb_of_matches, map, argument);
-  my_putstr("AI removed ");
-  my_put_nbr(nb_of_matches);
-  my_putstr(" match(es) from line ");
-  my_put_nbr(line);
-  my_putchar('\n');  
+  state = 0;
+  while (!state)
+    {
+      line = rand() % (argument.line - 1) + 1;
+      nb_of_matches = rand() % (argument.nb_rm_stick - 1) + 1;
+      if (nb_of_matches <= check_nb_stick(map, argument, line))
+	state = 1;
+    }
+  rm_matches(line, nb_of_matches, map, argument);
+  display_result(line, nb_of_matches, 1);
 }
 
 int	game_loop(char **map, arg argument)
 {
   int	state;
   int	turn;
-  char	*input;
 
   state = 0;
   turn = 0;
@@ -274,6 +325,11 @@ int	prep_game(char **argv)
   argument.base = argument.line * 2 - 1;
   map = create_map(argument);
   return_value = game_loop(map, argument);
+  display_map(map, argument);
+  if (return_value == 1)
+    my_putstr("I lost... snif... but I'll get you next time!!\n");
+  else if (return_value == 2)
+    my_putstr("You lost, too bad...\n");
   free(map[0]);
   free(map);
   return (return_value);

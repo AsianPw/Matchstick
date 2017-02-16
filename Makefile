@@ -1,39 +1,43 @@
-##
-## Makefile for matchstick in /home/brice/Documents/CPE/CPE_2016_matchstick
-## 
-## Made by Brice Lang-Nguyen
-## Login   <brice.lang-nguyen@epitech.eu>
-## 
-## Started on  Wed Feb 15 13:55:59 2017 Brice Lang-Nguyen
-## Last update Wed Feb 15 18:38:21 2017 Brice Lang-Nguyen
-##
-
-NAME	= matchstick
+NAME	= matckstick
 
 CC	= gcc
 
 RM	= rm -f
 
 SRCS	= ./main.c \
-	  ./src/my_getnbr.c \
+	  ./src/check_map.c \
+	  ./src/check_nb_stick.c \
+	  ./src/create_map.c \
+	  ./src/display_map.c \
+	  ./src/display_result.c \
+	  ./src/draw_line.c \
+	  ./src/filled_map.c \
 	  ./src/get_next_line.c \
+	  ./src/ia_turn.c \
+	  ./src/my_getnbr.c \
 	  ./src/my_put_nbr.c \
+	  ./src/my_putchar.c \
+	  ./src/my_putstr.c \
+	  ./src/my_strlen.c \
+	  ./src/rm_matches.c \
+	  ./src/verif.c \
+	  ./src/your_turn.c 
 
 OBJS	= $(SRCS:.c=.o)
 
 CFLAGS = -I./inc/
-CFLAGS += -g -W -Wall -Wextra
+CFLAGS += -W -Wall -Wextra
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	 @$(CC) $(OBJS) -o $(NAME)
+	 $(CC) $(OBJS) -o $(NAME)
 
 clean:
-	@$(RM) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

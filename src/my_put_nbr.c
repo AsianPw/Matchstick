@@ -1,4 +1,3 @@
-
 /*
 ** my_put_nbr.c for lib_epitech in /home/brice/Documents/lib_epitech_piscine/src
 ** 
@@ -6,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Fri Jan 27 18:49:32 2017 Brice Lang-Nguyen
-** Last update Wed Feb 15 16:33:23 2017 Brice Lang-Nguyen
+** Last update Thu Feb 16 20:26:09 2017 Brice Lang-Nguyen
 */
 
 #include "matchstick.h"

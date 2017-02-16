@@ -5,23 +5,14 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Tue Feb 14 17:11:12 2017 Brice Lang-Nguyen
-** Last update Wed Feb 15 15:55:47 2017 Brice Lang-Nguyen
+** Last update Thu Feb 16 20:24:18 2017 Brice Lang-Nguyen
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "matchstick.h"
 #define READ_SIZE 100
-
-int	my_strlen(char *str)
-{
-  int	i;
-
-  i = 0;
-  while (str[i] != '\0')
-    i++;
-  return (i);
-}
 
 char	*my_realloc(char *str)
 {

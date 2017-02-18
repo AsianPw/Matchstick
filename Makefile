@@ -1,4 +1,4 @@
-NAME	= matckstick
+NAME	= matchstick
 
 CC	= gcc
 

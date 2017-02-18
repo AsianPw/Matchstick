@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:13:45 2017 Brice Lang-Nguyen
-** Last update Fri Feb 17 15:11:41 2017 Brice Lang-Nguyen
+** Last update Sat Feb 18 15:15:55 2017 Brice Lang-Nguyen
 */
 
 #include <stdlib.h>
@@ -52,18 +52,23 @@ void	your_turn(char **map, arg argument)
     {
       my_putstr("Line: ");
       input = get_next_line(0);
-      line = my_getnbr(input) - 1;
-      free(input);
-      if (line + 1 >= 1 && line + 1 <= argument.line)
+      if (my_strlen(input) != 0)
 	{
-	  my_putstr("Matches: ");
-	  input = get_next_line(0);
-	  nb_of_matches = my_getnbr(input);
-	  if (is_good(nb_of_matches, map, argument, line))
-	    state = 1;
+	  line = my_getnbr(input) - 1;
+	  free(input);
+	  if (line + 1 >= 1 && line + 1 <= argument.line)
+	    {
+	      my_putstr("Matches: ");
+	      input = get_next_line(0);
+	      nb_of_matches = my_getnbr(input);
+	      if (is_good(nb_of_matches, map, argument, line))
+		state = 1;
+	    }
+	  else
+	    my_putstr("Error: this line is out of range\n");
 	}
       else
-	my_putstr("Error: this line is out of range\n");
+	free(input);
     }
   rm_matches(line, nb_of_matches, map, argument);
   free(input);

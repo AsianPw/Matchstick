@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:14:23 2017 Brice Lang-Nguyen
-** Last update Thu Feb 16 20:22:18 2017 Brice Lang-Nguyen
+** Last update Fri Feb 17 14:52:06 2017 Brice Lang-Nguyen
 */
 
 #include <time.h>
@@ -17,16 +17,23 @@ void	ia_turn(char **map, arg argument)
   int	line;
   int	state;
   int	nb_of_matches;
+  int	born_inf;
 
   my_putstr("AI's turn...\n");
   srand(time(NULL));
   state = 0;
+  born_inf = 1;
+  if (argument.nb_rm_stick == 1)
+    born_inf = 0;
   while (!state)
     {
       line = rand() % (argument.line - 1) + 1;
-      nb_of_matches = rand() % (argument.nb_rm_stick - 1) + 1;
+      nb_of_matches = rand() % (argument.nb_rm_stick - born_inf) + 1;
       if (nb_of_matches <= check_nb_stick(map, argument, line))
-	state = 1;
+	{
+	  if (nb_of_matches > 0)
+	    state = 1;
+	}
     }
   rm_matches(line, nb_of_matches, map, argument);
   display_result(line, nb_of_matches, 1);

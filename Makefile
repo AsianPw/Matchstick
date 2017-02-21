@@ -14,6 +14,7 @@ SRCS	= ./main.c \
 	  ./src/filled_map.c \
 	  ./src/get_next_line.c \
 	  ./src/ia_turn.c \
+	  ./src/ia_turn2.c \
 	  ./src/my_getnbr.c \
 	  ./src/my_put_nbr.c \
 	  ./src/my_putchar.c \

@@ -1,4 +1,3 @@
-
 /*
 ** matchstick.h for matchstick in /home/brice/Documents/CPE/CPE_2016_matchstick
 ** 
@@ -6,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:47:15 2017 Brice Lang-Nguyen
-** Last update Thu Feb 16 20:20:58 2017 Brice Lang-Nguyen
+** Last update Mon Feb 20 16:16:18 2017 Brice Lang-Nguyen
 */
 
 #ifndef __MATCHSTICK__
@@ -41,6 +40,7 @@ void	display_result(int, int, int);
 void	draw_line(arg);
 void	filled_map(char**, arg);
 void	ia_turn(char**, arg);
+void	ia_turn2(char **, arg);
 void	my_putchar(char);
 void	my_putstr(char*);
 void	rm_matches(int, int, char**, arg);

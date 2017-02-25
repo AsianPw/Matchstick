@@ -5,13 +5,14 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Tue Feb 21 16:38:42 2017 Brice Lang-Nguyen
+** Last update Sat Feb 25 11:06:28 2017 Brice
 */
 
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "matchstick.h"
+#include "msg.h"
 
 int	game_loop(char **map, arg argument)
 {
@@ -26,7 +27,8 @@ int	game_loop(char **map, arg argument)
       my_putchar('\n');
       if (turn == 0)
 	{
-	  your_turn(map, argument);
+	  if (your_turn(map, argument) == -1)
+	    return (-1);
 	  turn = 1;
 	}
       else
@@ -53,11 +55,13 @@ int	prep_game(char **argv)
   argument.base = argument.line * 2 - 1;
   map = create_map(argument);
   return_value = game_loop(map, argument);
+  if (return_value == -1)
+    return (return_value);
   display_map(map, argument);
   if (return_value == 1)
-    my_putstr("I lost... snif... but I'll get you next time!!\n");
+    my_putstr(IA_FAIL);
   else if (return_value == 2)
-    my_putstr("You lost, too bad...\n");
+    my_putstr(PLAYER_FAIL);
   free(map[0]);
   free(map);
   return (return_value);

@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Tue Feb 14 17:11:12 2017 Brice Lang-Nguyen
-** Last update Thu Feb 16 20:24:18 2017 Brice Lang-Nguyen
+** Last update Sat Feb 25 10:56:20 2017 Brice
 */
 
 #include <stdio.h>
@@ -32,31 +32,46 @@ char	*my_realloc(char *str)
   return (new);
 }
 
+char		get_next_char(const int fd)
+{
+  static char	buff[READ_SIZE];
+  static char	*pos;
+  static int	len = 0;
+  char		c;
+
+  if (len == 0)
+    {
+      len = read(fd, buff, READ_SIZE);
+      pos = &buff[0];
+      if (len == 0)
+	return (0);
+    }
+  c = *pos;
+  pos++;
+  len--;
+  return (c);
+}
 
 char	*get_next_line(const int fd)
 {
-  char	buff[READ_SIZE + 1];
   char	*res;
-  int	i;
-  int	j;
+  char	char_in_prog;
+  int	size;
 
-  i = 0;
-  j = 0;
+  size =  0;
   if ((res = malloc(sizeof(char) * READ_SIZE + 1)) == NULL)
     return (NULL);
-  buff[READ_SIZE] = '\0';
-  while (buff[j] != '\n')
+  char_in_prog = get_next_char(fd);
+  while (char_in_prog != '\n' && char_in_prog != '\0')
     {
-      if (j == 0)
-	read(fd, buff, READ_SIZE);
-      if (j == 0 && i != 0)
+      res[size] = char_in_prog;
+      char_in_prog = get_next_char(fd);
+      size++;
+      if (size == READ_SIZE)
 	res = my_realloc(res);
-      res[i] = buff[j];
-      i++;
-      if (j > READ_SIZE - 1)
-	j = 0;
-      else
-	j++;
     }
+  res[size] = '\0';
+  if (char_in_prog == '\0' && res[0] == 0)
+    return (NULL);
   return (res);
 }

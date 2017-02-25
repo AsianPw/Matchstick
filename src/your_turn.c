@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:13:45 2017 Brice Lang-Nguyen
-** Last update Sat Feb 18 18:07:09 2017 Brice Lang-Nguyen
+** Last update Sat Feb 25 11:01:10 2017 Brice
 */
 
 #include <stdlib.h>
@@ -39,7 +39,7 @@ int	is_good(int nb_of_matches, char **map, arg argument, int line)
 }
 
 
-void	your_turn(char **map, arg argument)
+int	your_turn(char **map, arg argument)
 {
   char	*input;
   int	line;
@@ -52,8 +52,13 @@ void	your_turn(char **map, arg argument)
     {
       my_putstr("Line: ");
       input = get_next_line(0);
-      line = my_getnbr(input) - 1;
-      free(input);
+      if (input != NULL)
+	{
+	  line = my_getnbr(input) - 1;
+	  free(input);
+	}
+      else
+	return (-1);
       if (line + 1 >= 1 && line + 1 <= argument.line)
 	{
 	  my_putstr("Matches: ");
@@ -68,4 +73,5 @@ void	your_turn(char **map, arg argument)
   rm_matches(line, nb_of_matches, map, argument);
   free(input);
   display_result(line, nb_of_matches, 0);
+  return (0);
 }

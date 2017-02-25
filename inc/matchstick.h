@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:47:15 2017 Brice Lang-Nguyen
-** Last update Mon Feb 20 16:16:18 2017 Brice Lang-Nguyen
+** Last update Sat Feb 25 10:59:17 2017 Brice
 */
 
 #ifndef __MATCHSTICK__
@@ -34,6 +34,7 @@ int	my_put_nbr(int);
 int	my_getnbr(char*);
 int	my_strlen(char*);
 int	verif(int, char**);
+int	your_turn(char**, arg);
 
 void	display_map(char**, arg);
 void	display_result(int, int, int);
@@ -44,6 +45,5 @@ void	ia_turn2(char **, arg);
 void	my_putchar(char);
 void	my_putstr(char*);
 void	rm_matches(int, int, char**, arg);
-void	your_turn(char**, arg);
 
 #endif /* !MATCHSTICK */

@@ -5,14 +5,13 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Tue Feb 14 17:11:12 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 10:56:20 2017 Brice
+** Last update Sat Feb 25 14:08:16 2017 Brice
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "matchstick.h"
-#define READ_SIZE 100
 
 char	*my_realloc(char *str)
 {

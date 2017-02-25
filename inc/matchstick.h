@@ -5,11 +5,12 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:47:15 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 10:59:17 2017 Brice
+** Last update Sat Feb 25 14:08:12 2017 Brice
 */
 
 #ifndef __MATCHSTICK__
- #define __MATCHSTICK__
+# define __MATCHSTICK__
+# define READ_SIZE 3
 
 typedef enum
   {

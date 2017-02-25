@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:11:12 2017 Brice Lang-Nguyen
-** Last update Thu Feb 16 20:12:00 2017 Brice Lang-Nguyen
+** Last update Sat Feb 25 11:26:04 2017 Brice
 */
 
 #include "matchstick.h"
@@ -25,7 +25,7 @@ void	rm_matches(int line, int nb_of_matches, char **map, arg argument)
     }
   if (j < nb_of_matches)
     return ;
-  i = argument.base;
+  //i = argument.base;
   while (map[line][i] != '|')
     {
       i--;
@@ -37,5 +37,4 @@ void	rm_matches(int line, int nb_of_matches, char **map, arg argument)
       i--;
       j++;
     }
-  return ;
 }

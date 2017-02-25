@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:13:45 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 11:01:10 2017 Brice
+** Last update Sat Feb 25 15:19:48 2017 Brice
 */
 
 #include <stdlib.h>
@@ -38,6 +38,23 @@ int	is_good(int nb_of_matches, char **map, arg argument, int line)
   return (true);
 }
 
+int	what_line(arg argument)
+{
+  char	*input;
+  int	line;
+
+  input = get_next_line(0);
+  if (input == NULL)
+    return (-1);
+  line = my_getnbr(input);
+  if (line <= 0 || line > argument.line)
+    {
+      my_putstr("ERROR: this line is out of range\n");
+      return (0);
+    }
+  free(input);
+  return (line);
+}
 
 int	your_turn(char **map, arg argument)
 {
@@ -51,24 +68,17 @@ int	your_turn(char **map, arg argument)
   while (!state)
     {
       my_putstr("Line: ");
-      input = get_next_line(0);
-      if (input != NULL)
-	{
-	  line = my_getnbr(input) - 1;
-	  free(input);
-	}
-      else
+      if ((line = what_line(argument)) == -1)
 	return (-1);
-      if (line + 1 >= 1 && line + 1 <= argument.line)
+      else if (line > 0)
 	{
+	  line -= 1;
 	  my_putstr("Matches: ");
 	  input = get_next_line(0);
 	  nb_of_matches = my_getnbr(input);
 	  if (is_good(nb_of_matches, map, argument, line))
 	    state = 1;
 	}
-      else
-	my_putstr("Error: this line is out of range\n");
     }
   rm_matches(line, nb_of_matches, map, argument);
   free(input);

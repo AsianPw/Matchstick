@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 14:15:05 2017 Brice
+** Last update Sat Feb 25 14:32:47 2017 Brice
 */
 
 #include <time.h>
@@ -17,29 +17,21 @@
 int	game_loop(char **map, arg argument)
 {
   int	state;
-  int	turn;
 
   state = 0;
-  turn = 0;
   while (!state)
     {
       display_map(map, argument);
       my_putchar('\n');
-      if (turn == 0)
-	{
-	  if (your_turn(map, argument) == -1)
-	    return (-1);
-	  turn = 1;
-	}
-      else
-	{
-	  ia_turn(map, argument);
-	  turn = 0;
-	}
-      if (check_map(map, argument) && turn == 0)
-	return (1);
-      else if (check_map(map, argument) && turn == 1)
+      if (your_turn(map, argument) == -1)
+	return (-1);
+      if (check_map(map, argument))
 	return (2);
+      display_map(map, argument);
+      my_putchar('\n');
+      ia_turn(map, argument);
+      if (check_map(map, argument))
+	return (1);
     }
   return (0);
 }

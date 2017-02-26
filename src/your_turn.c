@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:13:45 2017 Brice Lang-Nguyen
-** Last update Sun Feb 26 13:21:22 2017 Brice
+** Last update Sun Feb 26 13:31:57 2017 Brice
 */
 
 #include <stdlib.h>
@@ -81,7 +81,7 @@ int	your_turn(char **map, arg argument)
 	  my_putstr("Matches: ");
 	  input = get_next_line(0);
 	  nb_of_matches = my_getnbr(input);
-	  if (is_good(nb_of_matches, map, argument, line))
+	  if (is_good(nb_of_matches, map, argument, line) && !any_char(input))
 	    state = 1;
 	}
     }

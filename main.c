@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Sun Feb 26 10:41:33 2017 Brice
+** Last update Sun Feb 26 11:06:49 2017 Brice
 */
 
 #include <time.h>
@@ -24,7 +24,7 @@ int	game_loop(char **map, arg argument)
       display_map(map, argument);
       my_putchar('\n');
       if (your_turn(map, argument) == -1)
-	return (-1);
+      	return (-1);
       if (check_map(map, argument))
 	return (2);
       display_map(map, argument);

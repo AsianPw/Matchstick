@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:47:15 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 14:08:12 2017 Brice
+** Last update Sun Feb 26 13:21:49 2017 Brice
 */
 
 #ifndef __MATCHSTICK__
@@ -29,6 +29,7 @@ char	*get_next_line(const int);
 
 char	**create_map(arg);
 
+int	any_char(char*);
 int	check_map(char**, arg);
 int	check_nb_stick(char**, arg, int);
 int	my_put_nbr(int);

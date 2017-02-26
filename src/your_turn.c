@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:13:45 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 15:19:48 2017 Brice
+** Last update Sun Feb 26 13:21:22 2017 Brice
 */
 
 #include <stdlib.h>
@@ -46,6 +46,11 @@ int	what_line(arg argument)
   input = get_next_line(0);
   if (input == NULL)
     return (-1);
+  if (any_char(input))
+    {
+      my_putstr("ERROR: invalid input (positive number expected)\n");
+      return (0);
+    }
   line = my_getnbr(input);
   if (line <= 0 || line > argument.line)
     {

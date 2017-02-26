@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Wed Feb 15 11:44:15 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 14:32:47 2017 Brice
+** Last update Sun Feb 26 10:41:33 2017 Brice
 */
 
 #include <time.h>
@@ -48,7 +48,7 @@ int	prep_game(char **argv)
   map = create_map(argument);
   return_value = game_loop(map, argument);
   if (return_value == -1)
-    return (return_value);
+    return (0);
   display_map(map, argument);
   if (return_value == 1)
     my_putstr(IA_FAIL);

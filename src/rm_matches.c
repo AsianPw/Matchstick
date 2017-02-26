@@ -5,7 +5,7 @@
 ** Login   <brice.lang-nguyen@epitech.eu>
 ** 
 ** Started on  Thu Feb 16 20:11:12 2017 Brice Lang-Nguyen
-** Last update Sat Feb 25 14:06:56 2017 Brice
+** Last update Sun Feb 26 10:47:26 2017 Brice
 */
 
 #include "matchstick.h"
@@ -13,27 +13,15 @@
 void	rm_matches(int line, int nb_of_matches, char **map, arg argument)
 {
   int	i;
-  int	j;
 
-  i = 0;
-  j = 0;
-  while (i < argument.base)
-    {
-      if (map[line][i] == '|')
-	j++;
-      i++;
-    }
-  if (j < nb_of_matches)
-    return ;
+  i = argument.base - 1;
   while (map[line][i] != '|')
-    {
-      i--;
-    }
-  j = 0;
-  while (j < nb_of_matches)
+    i--;
+  while (nb_of_matches > 0)
     {
       map[line][i] = ' ';
       i--;
-      j++;
+      nb_of_matches--;
     }
+  return ;
 }
